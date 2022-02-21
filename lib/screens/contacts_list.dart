@@ -23,6 +23,8 @@ class ContactsList extends StatelessWidget {
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => ContatcForm()),
+          ).then(
+          (newContact) => debugPrint(newContact.toString()),
           );
         },
         child: Icon(Icons.add),
