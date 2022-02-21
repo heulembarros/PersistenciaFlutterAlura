@@ -1,22 +1,24 @@
+import 'package:bytebank2/database/app_database.dart';
 import 'package:bytebank2/models/contact.dart';
 import 'package:flutter/material.dart';
 
-class ContatcForm extends StatefulWidget {
-
+class ContactForm extends StatefulWidget {
   @override
-  _ContatcFormState createState() => _ContatcFormState();
+  _ContactFormState createState() => _ContactFormState();
 }
 
-class _ContatcFormState extends State<ContatcForm> {
+class _ContactFormState extends State<ContactForm> {
   final TextEditingController _nameController = TextEditingController();
 
-  final TextEditingController _accountNumberController = TextEditingController();
+  final TextEditingController _accountNumberController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-        title: Text('Adicionar Contato'),),
+      appBar: AppBar(
+        title: Text('Adicionar Contato'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -46,13 +48,14 @@ class _ContatcFormState extends State<ContatcForm> {
               padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
               child: RaisedButton(
                 child: Text('Criar'),
-                  onPressed: (){
+                onPressed: () {
                   final String name = _nameController.text;
-                  final int accountNumber = int.tryParse(_accountNumberController.text);
-                  debugPrint("Envia: " + name + " - " +accountNumber.toString());
+                  final int accountNumber =
+                      int.tryParse(_accountNumberController.text);
                   final Contact newContact = Contact(0, name, accountNumber);
-                  Navigator.pop(context, newContact);
-              }),
+                  save(newContact).then((id) => Navigator.pop(context));
+                },
+              ),
             ),
           ],
         ),
